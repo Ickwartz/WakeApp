@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter.messagebox import showinfo
 import bvg_api_handler as bvg
+import helpers
 
 
 def submit_click():
@@ -9,8 +10,8 @@ def submit_click():
     prep_time = prep_time_value.get()
     start_point = start_point_value.get()
     destination = destination_value.get()
-    travel_time = bvg.get_travel_time(start_point, destination)
-    calculate_wake_time(arrival_time, prep_time, travel_time)
+    travel_time = bvg.get_travel_time(start_point, destination, arrival_time)
+    wake_time = helpers.calculate_wake_time(arrival_time, prep_time, travel_time)
     
 
 
@@ -25,6 +26,8 @@ arrival_time_value = tk.StringVar(value="00:00")
 prep_time_value = tk.StringVar(value="00:00")
 start_point_value = tk.StringVar(value="")
 destination_value = tk.StringVar(value="")
+
+wake_time = tk.StringVar(value="00:00")
 
 
 # frame for time input
@@ -62,6 +65,10 @@ destination_label.pack(fill="x", expand=True)
 
 destination_input = ttk.Entry(input_frame, textvariable=destination_value)
 destination_input.pack(fill="x", expand=True)
+
+# display wake time
+wake_time_label = ttk.Label(root, text="Weckzeit:").pack()
+wake_time_display = ttk.Label(root, text=wake_time).pack()
 
 # submit button
 ttk.Button(input_frame, text="berechnen", command=submit_click).pack()

@@ -43,10 +43,3 @@ def get_travel_time(stop_1, stop_2, arrival):
     time_of_arrival = helpers.extract_time_from_iso_format(journey[-1]["arrival"])
 
     return helpers.calculate_time_diff(time_of_arrival, departure_time)
-
-
-
-start = "vincent-van-gogh-str"
-stop = "neukoelln"
-
-print(get_travel_time(start, stop, "12:00"))
