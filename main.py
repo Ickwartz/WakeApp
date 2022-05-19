@@ -1,19 +1,14 @@
 import datetime
-
-#prepTime = input("Wie lange brauchen sie um sich vor dem los gehen fertig zu machen: ")
-additionalDelay = 0
+import gui_handler
 
 
-def getTimeOfArrival():
-    ankunftszeit = input("Geben Sie bitte Ihre gewünschte Ankunftszeit ein(HH:MM): ")
-    
+def testTimeFormat(timeString):
     while True:
         try:
-            datetime.datetime.strptime(ankunftszeit, "%H:%M")
+            finalTime = datetime.datetime.strptime(timeString, "%H:%M")
         except:
-            ankunftszeit = input("Das Format ihrer Zeitangabe war fehlerhaft (HH:MM), bitte geben sie die Zeit erneut ein: ")
+            timeString = input("Das Format ihrer Zeitangabe war fehlerhaft (HH:MM), bitte geben sie die Zeit erneut ein: ")
             continue
         break
-    return ankunftszeit
+    return finalTime
 
-print(getTimeOfArrival())
