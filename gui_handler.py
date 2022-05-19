@@ -1,21 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter.messagebox import showinfo
-
-
-def testTimeFormat(timeString):
-    while True:
-        try:
-            finalTime = datetime.datetime.strptime(timeString, "%H:%M")
-        except:
-            timeString = input("Das Format ihrer Zeitangabe war fehlerhaft (HH:MM), bitte geben sie die Zeit erneut ein: ")
-            continue
-        break
-    return finalTime
-
-
-def calculate_wake_time(arrival_time, prep_time, travel_time):
-    return
+import bvg_api_handler as bvg
 
 
 def submit_click():
@@ -23,8 +9,8 @@ def submit_click():
     prep_time = prep_time_value.get()
     start_point = start_point_value.get()
     destination = destination_value.get()
-    #travel_time = get_travel_time(start_point, destination)
-    #calculate_wake_time(arrival_time, prep_time, travel_time)
+    travel_time = bvg.get_travel_time(start_point, destination)
+    calculate_wake_time(arrival_time, prep_time, travel_time)
     
 
 
@@ -36,7 +22,7 @@ root.title("WakeApp")
 
 
 arrival_time_value = tk.StringVar(value="00:00")
-prep_time_value = tk.StringVar(value="00")
+prep_time_value = tk.StringVar(value="00:00")
 start_point_value = tk.StringVar(value="")
 destination_value = tk.StringVar(value="")
 
@@ -47,7 +33,7 @@ input_frame.pack(padx=10, pady=10, fill="x", expand=True)
 
 
 # time of arrival input
-arrival_label = ttk.Label(input_frame, text="Ankuftszeit: ")
+arrival_label = ttk.Label(input_frame, text="Ankuftszeit (HH:MM): ")
 arrival_label.pack(fill="x", expand=True)
 
 arrival_entry = ttk.Entry(input_frame, textvariable=arrival_time_value)
@@ -55,7 +41,7 @@ arrival_entry.pack(fill="x", expand=True)
 
 
 # time to get ready input
-prep_label = ttk.Label(input_frame, text="Benötigte Zeit zum fertig zu machen (min): ")
+prep_label = ttk.Label(input_frame, text="Benötigte Zeit zum fertig zu machen (HH:MM): ")
 prep_label.pack(fill="x", expand=True)
 
 prep_entry = ttk.Entry(input_frame, textvariable=prep_time_value)
